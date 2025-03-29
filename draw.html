@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drawing Shapes - Geometry Test</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f3f4f6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #6a5acd;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #6a5acd;
+            text-align: center;
+        }
+        canvas {
+            border: 1px solid #ddd;
+            background-color: #fff;
+            display: block;
+            margin: 20px auto;
+            cursor: crosshair;
+        }
+        .controls {
+            text-align: center;
+            margin-top: 20px;
+        }
+        button, input {
+            background-color: #6a5acd;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 10px;
+        }
+        button:hover, input:hover {
+            background-color: #5a4cb2;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        Drawing Shapes
+    </div>
+    <div class="container">
+        <h1>Draw Polygon on Canvas</h1>
+        <canvas id="drawingCanvas" width="600" height="400"></canvas>
+        <div class="controls">
+            <label for="sidesInput">Number of sides:</label>
+            <input type="number" id="sidesInput" min="3" value="3">
+            <button onclick="drawPolygon()">Draw Polygon</button>
+            <button onclick="clearCanvas()">Clear Canvas</button>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('drawingCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Clear the canvas
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        // Draw polygon based on user input
+        function drawPolygon() {
+            const sides = parseInt(document.getElementById('sidesInput').value);
+            if (sides < 3) {
+                alert("Polygon must have at least 3 sides.");
+                return;
+            }
+
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const radius = 100;  // Radius of the polygon
+            const angle = (2 * Math.PI) / sides;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas before drawing
+            ctx.beginPath();
+
+            // Calculate the vertices and draw the polygon
+            for (let i = 0; i < sides; i++) {
+                const x = centerX + radius * Math.cos(i * angle);
+                const y = centerY + radius * Math.sin(i * angle);
+                if (i === 0) {
+                    ctx.moveTo(x, y);  // Move to the first vertex
+                } else {
+                    ctx.lineTo(x, y);  // Draw line to the next vertex
+                }
+            }
+            ctx.closePath();
+            ctx.strokeStyle = '#6a5acd';
+            ctx.lineWidth = 5;
+            ctx.stroke();
+        }
+    </script>
+</body>
+</html>
