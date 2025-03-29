@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Angles and Lines Test</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f3f4f6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #6a5acd;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .question {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        .options button {
+            background: #9370db;
+            color: white;
+            padding: 10px 15px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .options button:hover {
+            background: #7a5eb2;
+        }
+        .back {
+            display: block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #6a5acd;
+            font-size: 16px;
+        }
+        .back:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Angles and Lines Test</div>
+    <div class="container">
+        <div class="question" id="question"></div>
+        <div class="options" id="options"></div>
+        <button onclick="nextQuestion()">Next</button>
+        <a href="index.html" class="back">← Back to Home</a>
+    </div>
+
+    <script>
+        const questions = [
+            { question: "What is the sum of angles in a triangle?", options: ["90 degrees", "120 degrees", "180 degrees", "360 degrees"], answer: "180 degrees" },
+            { question: "A right angle measures how many degrees?", options: ["45", "90", "120", "180"], answer: "90" },
+            { question: "Parallel lines never...", options: ["Meet", "Intersect", "Touch", "All of the above"], answer: "All of the above" },
+            { question: "What do you call an angle greater than 90 degrees but less than 180 degrees?", options: ["Acute", "Obtuse", "Right", "Straight"], answer: "Obtuse" },
+            { question: "How many degrees is a straight angle?", options: ["90", "120", "180", "360"], answer: "180" },
+            { question: "Two angles that add up to 90 degrees are called?", options: ["Supplementary", "Complementary", "Vertical", "Reflex"], answer: "Complementary" },
+            { question: "Two angles that add up to 180 degrees are called?", options: ["Complementary", "Supplementary", "Right", "Acute"], answer: "Supplementary" },
+            { question: "An acute angle is...", options: ["Less than 90 degrees", "Exactly 90 degrees", "More than 90 degrees", "More than 180 degrees"], answer: "Less than 90 degrees" },
+            { question: "What type of angle is 270 degrees?", options: ["Acute", "Right", "Reflex", "Straight"], answer: "Reflex" },
+            { question: "What do you call angles that are opposite each other when two lines cross?", options: ["Adjacent", "Vertical", "Complementary", "Alternate"], answer: "Vertical" }
+        ];
+
+        let currentQuestionIndex = 0;
+
+        function loadQuestion() {
+            const questionElement = document.getElementById("question");
+            const optionsElement = document.getElementById("options");
+            
+            questionElement.textContent = questions[currentQuestionIndex].question;
+            optionsElement.innerHTML = "";
+            
+            questions[currentQuestionIndex].options.forEach(option => {
+                const button = document.createElement("button");
+                button.textContent = option;
+                button.onclick = () => checkAnswer(option);
+                optionsElement.appendChild(button);
+            });
+        }
+
+        function checkAnswer(selected) {
+            if (selected === questions[currentQuestionIndex].answer) {
+                alert("Correct!");
+            } else {
+                alert("Wrong! The correct answer is " + questions[currentQuestionIndex].answer);
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                loadQuestion();
+            } else {
+                alert("You have completed the test!");
+            }
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>
